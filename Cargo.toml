@@ -1,0 +1,16 @@
+[package]
+name = "cs525-kernel-task1"
+version = "0.1.0"
+authors = ["Ruichun <ruichun.ma@yale.edu>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Panic behaviour, see https://crates.io/keywords/panic-impl for alternatives
+panic-halt = "0.2"
+cortex-m-semihosting = "0.3.7"
+
+[dependencies.cortex-m]
+version = "0.7"
+features = ["inline-asm"]
