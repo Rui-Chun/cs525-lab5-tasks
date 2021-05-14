@@ -43,7 +43,7 @@ PROVIDE(__pre_init = DefaultPreInit);
 /* # Sections */
 SECTIONS
 {
-  PROVIDE(_stack_start = ORIGIN(RAM) + LENGTH(RAM));
+  /* PROVIDE(_stack_start = ORIGIN(RAM) + LENGTH(RAM)); */
 
   /* ### .text */
   .text ORIGIN(FLASH) :
