@@ -20,7 +20,7 @@
 
 /* Provides information about the memory layout of the device */
 /* This will be provided by the user (see `memory.x`) or by a Board Support Crate */
-INCLUDE memory.x
+INCLUDE memory_task2.x
 
 /* # Entry point = reset vector */
 ENTRY(task_main); /* what does this do? HERE. */
