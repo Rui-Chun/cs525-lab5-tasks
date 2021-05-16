@@ -2,7 +2,7 @@
 #![no_main]
 #![feature(asm)]
 
-use core::{u32, usize};
+use core::{usize};
 
 use panic_halt as _;
 
@@ -10,16 +10,9 @@ use panic_halt as _;
 // for task code, this can only print string. No value printing allowed.
 use cortex_m_semihosting::{hprintln, hprint};
 
-static TASK_ID: u32 = 1;
-static SYSCALL_ARG_ADDR: usize = 0x2000_ff00;
- 
-unsafe extern "C" fn asm_fn() {
-    let tmp_ptr = SYSCALL_ARG_ADDR as *mut u8;
-    *tmp_ptr = 0;   // assign syscall arg
-    asm!(
-        "SVC  0x0",
-    )
-}
+mod syscall_user;
+
+static TASK_ID: u8 = 1;
 
 fn delay_ms (ms: usize) {
     // hand crafted loop count
@@ -36,11 +29,9 @@ fn delay_ms (ms: usize) {
 // #[export_name = "exported_symbol_name"]
 pub extern "C" fn task_main() -> ! {
     // can not print varaiables for some reason.
-    // hprintln!("Hello, world! from task #{}, num  = {}", TASK_ID, num).unwrap();
+    hprintln!("Task #1 is loaded.").unwrap();
     loop {
-        unsafe{
-            asm_fn();
-        }
-        delay_ms(250);
+        syscall_user::toggle_blue(TASK_ID);
+        delay_ms(50);
     }
 }
